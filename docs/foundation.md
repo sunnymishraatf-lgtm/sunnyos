@@ -175,3 +175,102 @@ system stack and its major responsibilities.
 ```bash
 gcc -Wall -Wextra -Werror main.c -o main
 ./main
+
+
+
+# Day 3 — From Bits to Bytes
+
+## What I learned
+
+Today I learned how computers represent numbers and text using bits and bytes.
+
+### Binary
+
+Binary is base 2 and uses only `0` and `1`.
+
+8 bits make 1 byte. An unsigned byte can represent values from 0 to 255.
+
+### Hexadecimal
+
+Hexadecimal is base 16 and uses:
+
+`0-9` and `A-F`
+
+One hexadecimal digit represents 4 bits, so two hexadecimal digits represent one byte.
+
+Examples:
+
+* `65` decimal = `0x41` hexadecimal
+* `255` decimal = `0xFF` hexadecimal
+* `0x41` = binary `01000001`
+
+### Two's complement
+
+Two's complement is used to represent signed integers.
+
+For an 8-bit signed integer, the range is:
+
+`-128` to `127`
+
+For example:
+
+`11111111` represents `-1`.
+
+Adding 1 to the maximum signed 8-bit value:
+
+`01111111 + 1 = 10000000`
+
+causes overflow and produces `-128` when interpreted as a signed 8-bit value.
+
+### ASCII and UTF-8
+
+ASCII maps characters to numeric values.
+
+For example:
+
+`A = 65 = 0x41`
+
+UTF-8 is a variable-length encoding used for Unicode characters. A character can occupy between 1 and 4 bytes, so the number of characters is not always equal to the number of bytes.
+
+## What I built
+
+I created a C program that prints decimal and hexadecimal representations of byte values.
+
+I also created `TEST.BIN` containing `ABC` and inspected its bytes using `od`.
+
+The file produced:
+
+`41 42 43`
+
+which represents:
+
+* `A` → `0x41`
+* `B` → `0x42`
+* `C` → `0x43`
+
+## Commands used
+
+```bash
+gcc -Wall -Wextra -Werror day3.c -o bits
+./bits
+printf 'ABC' > TEST.BIN
+od -An -tx1 TEST.BIN
+```
+
+## Verification
+
+* Strict compilation: PASS
+* Program execution: PASS
+* Decimal/hex conversion tests: PASS
+* Byte inspection with `od`: PASS
+* Edge cases tested: `0`, `1`, `15`, `16`, `65`, `127`, `255`
+
+## Design decisions
+
+I used `unsigned char` for byte-sized values because an unsigned 8-bit value can represent `0` through `255`.
+
+I used strict compiler flags to catch warnings and keep the code clean.
+
+## Result
+
+I can now convert small values between decimal, hexadecimal, and binary and understand how numbers and basic text are represented as bytes in memory.
